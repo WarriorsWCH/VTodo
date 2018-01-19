@@ -1,0 +1,286 @@
+body {
+	margin:0;
+	background-color: #fafafa;
+	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h2{
+	margin:0 auto;
+	text-align: center;
+	line-height: 40px;
+	font-size: 20px;
+	color: white;
+}
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+input {
+	outline: 0;
+}
+
+button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	font-size: 100%;
+	vertical-align: baseline;
+	font-family: inherit;
+	font-weight: inherit;
+	color: inherit;
+	outline: 0;
+}
+
+ul {
+	padding:0;
+	margin:0;
+	list-style: none;
+}
+/* 导航条 */
+.page-top {
+	width: 100%;
+	height: 40px;
+    background-color: #46b1e4;
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+    .page-content {
+        width: 50%;
+        margin: 0px auto;
+        h2{
+            line-height: 40px;
+            font-size: 18px;
+            color: #fff;
+        }
+    }
+}
+
+/* 主体 */
+.main {
+    width: 50%;
+    min-width: 520px;;
+	margin: 70px auto;
+    box-sizing: border-box;
+    .big-title {
+        color: #222;
+    }
+    .task-input {
+        width: 99%;
+        height: 30px;
+        outline: 0;
+        border: 1px solid #ccc;
+    }
+    .task-count{
+        display: flex;
+        margin:20px 0;
+        width: 50%;
+        li {
+            margin-left: 10px;
+            flex: 1;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            &:nth-child(1){
+                margin-left: 0px;
+            }
+            &.active {
+                /* border: 1px solid #1f6282; */
+                background: #0e88c1;
+                color: #fff;
+            }
+        }
+
+    }
+    .tasks {
+        background-color: #fff;
+        .no-task-tip {
+            padding:10px 0 10px 10px;
+            display: block;
+            border-bottom: 1px solid #ededed;
+            color:#777;
+        }
+        .todo-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            li {
+                position: relative;
+                font-size: 16px;
+                border-bottom: 1px solid #ededed;
+                &:hover {
+                    background-color: #f4f8fa;
+                }
+                .toggle {
+                    text-align: center;
+                    width: 40px;
+                    /* auto, since non-WebKit browsers doesn't support input styling */
+                    height: auto;
+                    position: absolute;
+                    top: 5px;
+                    bottom: 0;
+                    margin: auto 0;
+                    border: none; /* Mobile Safari */
+                    -webkit-appearance: none;
+                    /* appearance: none; */
+                    cursor: pointer;
+                }
+                label {
+                    white-space: pre-line;
+                    word-break: break-all;
+                    padding: 15px 60px 15px 15px;
+                    margin-left: 45px;
+                    display: block;
+                    line-height: 1.2;
+                    transition: color 0.4s;
+                }
+                &.completed label {
+                    color: #d9d9d9;
+                    text-decoration: line-through;
+                }
+                .fr{
+                    position: absolute;
+                    right: 5px;
+                    top: 14px;
+                    cursor: pointer;
+                    color: #888;
+                    span:hover{
+                        color: #000;
+                    }
+                }
+            }
+            
+        }
+    }
+}
+
+
+ .toggle:after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="40" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
+}
+
+.toggle:checked:after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="40" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+}
+
+
+/* 提示框 */
+.mask{
+    position: fixed; 
+    background: rgba(0, 0, 0, 0.5); 
+    top: 0px; 
+    bottom: 0px; 
+    left: 0px; 
+    right: 0px;
+    display: none;
+}
+.msg-content{
+    color: rgb(68, 68, 68); 
+    width: 280px; 
+    height: 80px; 
+    padding: 15px 10px; 
+    background: rgb(255, 255, 255); 
+    position: absolute; 
+    border-radius: 3px; 
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 2px;
+    top: 50%; 
+    left: 50%; 
+    margin-left: -150px;
+    margin-top: -50px;
+    .pop-title{
+        padding: 5px 10px; font-weight: 900; font-size: 20px; text-align: center;
+    }
+    .pop-content{
+        padding: 5px 10px; 
+        text-align: center;
+    }
+}
+
+button {
+    display: inline-block;
+    cursor: pointer;
+    color: #333;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+button.primary,
+[type=submit] {
+    background: #46b1e4;
+    margin-right: 5px;
+}
+
+
+.task-detail input,
+.task-detail textarea{
+    border-radius: 3px;
+    padding: 10px;
+    width: 300px;
+}
+
+textarea,
+button,
+input[type=text],
+input[type=date] {
+    border: 0;
+}
+.task-detail textarea,
+.task-detail input[type=text], .task-detail input[type=date] {
+    display: block;
+    background: #ddd;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .3);
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .3);
+}
+
+textarea {
+    min-height: 100px;
+    resize:none;
+}
+
+.task-detail textarea:hover,
+.task-detail textarea:focus,
+.task-detail input[type=text]:hover,
+.task-detail input[type=date]:hover,
+.task-detail input[type=text]:focus,
+.task-detail input[type=date]:focus {
+    background: #eee;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .2);
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .2);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .2);
+}
+.task-detail{
+    display: none;
+    .detail-con{
+        position: absolute;
+        background: #fff;
+        overflow: auto;
+        color: #333;
+        width: 320px;
+        height: 320px;
+        padding: 10px;
+        top: 50%; 
+        left: 50%; 
+        margin-left: -150px;
+        margin-top: -160px;
+        border-radius: 3px 0 0 3px;
+        -webkit-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .1);
+        -moz-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .1);
+        box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .1);
+    }
+    .content {
+        padding: 10px;
+        font-weight: 900;
+        cursor: pointer;
+    }
+    .input-item {
+        margin-bottom: 10px;
+    }
+    .cancel{
+        float: right;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+}

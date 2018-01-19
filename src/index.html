@@ -1,13 +1,60 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<link rel="stylesheet" href="style/index.css" />
-		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-	</head>
-	<body>
-		
-		<script src="script/app.js"></script>
-	</body>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="style/index.css" />
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+
+	<div class="page-top">
+		<div class="page-content">
+			<h2>任务计划列表</h2>
+		</div>
+	</div>
+
+	<div class="main">
+		<h3 class="big-title">添加任务：</h3>
+		<input placeholder="例如：吃饭睡觉打豆豆；    提示：+回车即可添加任务" type="text" class="task-input" v-on:keyup.13="addTodo" v-model="todo" />
+		<ul class="task-count">
+			<li class="nav active all">
+				所有任务
+			</li>
+			<li class="nav unfinish">
+				未完成任务
+			</li>
+			<li class="nav finish">
+				已完成任务
+			</li>
+			<!-- <li>{{noCompelate}}个任务未完成</li>
+			<li class="action">
+				<a href="#all" :class="{active: hash === 'all'}">所有任务</a>
+				<a href="#unfinish" :class="{active: hash === 'unfinish'}">未完成任务</a>
+				<a href="#finish" :class="{active: hash === 'finish'}">已完成任务</a>
+			</li> -->
+		</ul>
+
+		<h3 class="big-title">任务列表：</h3>
+		<div class="tasks">
+			<span class="no-task-tip" v-show="!list.length">还没有添加任何任务</span>
+			<ul class="todo-list">
+				<li class="todo" v-for="item in filterList" :class="{completed: item.isChecked,editing: item === editorTodo}">
+					<div class="view">
+						<input type="checkbox" class="toggle" v-model="item.isChecked" />
+						<label @dblclick="editTodo(item)">{{item.title}}</label>
+						<button class="destroy" @click="deleteTodo(item)"></button>
+					</div>
+					<input class="edit" type="text" v-model="item.title" v-foucs="editorTodo === item" @keyup.13="editTodoed(item)" @blur="editTodoed(item)"
+					 @keyup.esc="cancelTodo(item)" />
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<script src="js/index.js"></script>
+</body>
+
 </html>
