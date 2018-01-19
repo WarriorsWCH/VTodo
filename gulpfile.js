@@ -8,6 +8,7 @@ var gulp = require('gulp');
 //var	rename = require('gulp-rename');
 //var	concat = require('gulp-concat');
 //var connect = require('gulp-connect');
+var babel = require('gulp-babel');
 var plu =require('gulp-load-plugins');
 var $ = plu();
 var open = require('open');
@@ -16,7 +17,6 @@ var open = require('open');
 //拷贝json文件
 gulp.task('json',function(){
 	gulp.src('src/data/**/*.json')
-	.pipe(gulp.dest('build/data'))
 	.pipe(gulp.dest('dist/data'))
 	.pipe($.connect.reload());
 });
@@ -26,7 +26,6 @@ gulp.task('less',function(){
 	gulp.src('src/style/index.less')
 	.pipe($.less())//编译less成css
 	.pipe($.autoprefixer())
-	.pipe(gulp.dest('build/style'))
 	.pipe($.cssmin())//压缩css
 	.pipe(gulp.dest('dist/style'))
 	.pipe($.connect.reload());
@@ -35,7 +34,6 @@ gulp.task('less',function(){
 //图片的拷贝压缩
 gulp.task('image',function(){
 	gulp.src('src/image/**/*.{png,jpg,gif}')
-	.pipe(gulp.dest('build/image'))
 	.pipe($.imagemin())//压缩图片
 	.pipe(gulp.dest('dist/image'))
 	.pipe($.connect.reload());
@@ -43,8 +41,10 @@ gulp.task('image',function(){
 //js的合并，然后压缩
 gulp.task('js',function(){
 	gulp.src('src/script/**/*')
-	.pipe($.concat('index.js'))//整合js
-	.pipe(gulp.dest('build/js'))
+	// .pipe($.concat('index.js'))//整合js
+	.pipe(babel({
+		presets: ['es2015']
+	  }))
 	.pipe($.uglify())//压缩js
 	.pipe(gulp.dest('dist/js'))
 	.pipe($.connect.reload());
@@ -52,13 +52,12 @@ gulp.task('js',function(){
 //拷贝html文件
 gulp.task('html',function(){
 	gulp.src('src/**/*.html')
-	.pipe(gulp.dest('build'))
 	.pipe(gulp.dest('dist'))
 	.pipe($.connect.reload());
 });
 //清除指定文件夹
 gulp.task('clean',function(){
-	gulp.src(['build','dist'])
+	gulp.src(['dist'])
 	.pipe($.clean());//清除
 });
 
@@ -67,7 +66,7 @@ gulp.task('clean',function(){
 gulp.task('default',['less','json','js','image','html'],function(){
 	//连接服务，刷新浏览器，root-浏览器打开的页面所在的目录
 	$.connect.server({
-		root : ['build'],
+		root : ['dist'],
 		livereload : true
 	});
 	//打开某个网址url

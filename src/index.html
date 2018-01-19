@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>Todo List</title>
 	<link rel="stylesheet" href="style/index.css" />
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
@@ -20,21 +20,16 @@
 		<h3 class="big-title">添加任务：</h3>
 		<input placeholder="例如：吃饭睡觉打豆豆；    提示：+回车即可添加任务" type="text" class="task-input" v-on:keyup.13="addTodo" v-model="todo" />
 		<ul class="task-count">
-			<li class="nav active all">
+			<li class="nav all" :class="{active: navStatus === 'all'}">
 				所有任务
 			</li>
-			<li class="nav unfinish">
+			<li class="nav unfinish" :class="{active: navStatus === 'unfinish'}">
 				未完成任务
+				<span v-show="noCompelate">{{noCompelate}}</span>
 			</li>
-			<li class="nav finish">
+			<li class="nav finish" :class="{active: navStatus === 'finish'}">
 				已完成任务
 			</li>
-			<!-- <li>{{noCompelate}}个任务未完成</li>
-			<li class="action">
-				<a href="#all" :class="{active: hash === 'all'}">所有任务</a>
-				<a href="#unfinish" :class="{active: hash === 'unfinish'}">未完成任务</a>
-				<a href="#finish" :class="{active: hash === 'finish'}">已完成任务</a>
-			</li> -->
 		</ul>
 
 		<h3 class="big-title">任务列表：</h3>
@@ -42,19 +37,20 @@
 			<span class="no-task-tip" v-show="!list.length">还没有添加任何任务</span>
 			<ul class="todo-list">
 				<li class="todo" v-for="item in filterList" :class="{completed: item.isChecked,editing: item === editorTodo}">
-					<div class="view">
-						<input type="checkbox" class="toggle" v-model="item.isChecked" />
-						<label @dblclick="editTodo(item)">{{item.title}}</label>
-						<button class="destroy" @click="deleteTodo(item)"></button>
-					</div>
-					<input class="edit" type="text" v-model="item.title" v-foucs="editorTodo === item" @keyup.13="editTodoed(item)" @blur="editTodoed(item)"
-					 @keyup.esc="cancelTodo(item)" />
+					<input type="checkbox" class="toggle" v-model="item.isChecked" >
+					<label @dblclick="editTodo(item)">{{item.title}}</label>
+					<span class="fr">
+						<span class="action delete"> 删除</span>
+						<span class="action detail"> 详细</span>
+					</span>
+					<!-- <input class="edit" type="text" v-model="item.title" v-foucs="editorTodo === item" @keyup.13="editTodoed(item)" @blur="editTodoed(item)"
+					 @keyup.esc="cancelTodo(item)" /> -->
 				</li>
 			</ul>
 		</div>
 	</div>
 
-	<script src="js/index.js"></script>
+	<script src="js/app.js"></script>
 </body>
 
 </html>
