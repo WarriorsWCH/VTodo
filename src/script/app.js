@@ -26,7 +26,9 @@ var app = new Vue({
         todo: '',//记录用户输入的内容，最终是要把这个记录放在list中
         editorTodo: '',//记录被编辑的内容
         beforTodo: '', //记录编辑之前的数据/内容
-        navStatus: 'all'//通过这个属性的变化对数据进行过滤
+        navStatus: 'all',//通过这个属性的变化对数据进行过滤
+        isDelete: false,
+        selectItem:'',
     },
     watch: {//监听数据的变化
         //监听list数据的变化
@@ -67,15 +69,15 @@ var app = new Vue({
                 }
             }
             //根据情况 返回相应的数据/数组
-            return filter[this.hash] ? filter[this.hash](list) : list;
-            //根据hash值调用filter对象中相应的方法
-            //应为hash值和方法名相同
+            return filter[this.navStatus] ? filter[this.navStatus](list) : list;
+            //根据navStatus调用filter对象中相应的方法
         }
     },
     methods: {
         addTodo() {//添加任务
+            if(!this.todo){return};
             //把todo添加到数组中，todo ---- title
-            this.list.push({
+            this.list.unshift({
                 //push方法并不是原生的push方法，vue在原生的基础上封装/改造的方法
                 //调用这个push方法会更新DOM
                 title: this.todo,
@@ -84,11 +86,19 @@ var app = new Vue({
             //清空记录的数据，保证用户下次输入可以从新开始
             this.todo = "";
         },
+        switchNav(event) {
+            console.log(event);
+        },
         deleteTodo(item) {//删除任务
+            this.isDelete = true;
+            this.selectItem = item;
+        },
+        confirmDeleteTodo() {//确认删除
             //获取要删除元素的索引
-            var index = this.list.indexOf(item);
+            var index = this.list.indexOf(this.selectItem);
             //删除元素
             this.list.splice(index, 1);
+            this.isDelete = false;
             //splice 也不是原生的方法
             //调用这个splice方法会更新DOM
         },
@@ -101,16 +111,8 @@ var app = new Vue({
             //记录被编辑的内容
             this.editorTodo = item;
         },
-        editTodoed(item) {//编辑成功
-            //让input消失
-            this.editorTodo = '';
-        },
-        cancelTodo(item) {//取消任务
-            //原来的值复原
-            item.title = this.beforTodo;
-
-            //让input消失
-            this.editorTodo = '';
+        cancelTodo() {//取消任务
+            this.isDelete = false;
         }
     },
     directives: {//自定义指令
@@ -131,18 +133,6 @@ var app = new Vue({
     }
 })
 
-//哈希值得处理/变化
-function watchHashChange() {
-    var hash = window.location.hash.slice(1);
-    //#all   all  unfinish  finnish
-    console.log(hash);
-    app.hash = hash;
-};
-watchHashChange();
-
-window.addEventListener('hashchange', watchHashChange);
-//监听hash的变化，一旦发生变化就调用watchHashChange方法
-//就能拿到当前的hash值
 
 
 

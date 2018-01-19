@@ -19,7 +19,7 @@
 	<div class="main">
 		<h3 class="big-title">添加任务：</h3>
 		<input placeholder="例如：吃饭睡觉打豆豆；    提示：+回车即可添加任务" type="text" class="task-input" v-on:keyup.13="addTodo" v-model="todo" />
-		<ul class="task-count">
+		<ul class="task-count" @click="switchNav">
 			<li class="nav all" :class="{active: navStatus === 'all'}">
 				所有任务
 			</li>
@@ -36,17 +36,28 @@
 		<div class="tasks">
 			<span class="no-task-tip" v-show="!list.length">还没有添加任何任务</span>
 			<ul class="todo-list">
-				<li class="todo" v-for="item in filterList" :class="{completed: item.isChecked,editing: item === editorTodo}">
+				<li class="todo" v-for="(item, index) in filterList" :class="{completed: item.isChecked,editing: item === editorTodo}">
 					<input type="checkbox" class="toggle" v-model="item.isChecked" >
-					<label @dblclick="editTodo(item)">{{item.title}}</label>
+					<label>{{item.title}}</label>
 					<span class="fr">
-						<span class="action delete"> 删除</span>
+						<span class="action delete" @click="deleteTodo(item)"> 删除</span>
 						<span class="action detail"> 详细</span>
 					</span>
 					<!-- <input class="edit" type="text" v-model="item.title" v-foucs="editorTodo === item" @keyup.13="editTodoed(item)" @blur="editTodoed(item)"
 					 @keyup.esc="cancelTodo(item)" /> -->
 				</li>
 			</ul>
+			<div class="msg-container mask" v-show="isDelete">
+				<div class="msg-content">
+					<div class="pop-title">确定删除?</div>
+					<div class="pop-content">
+						<div>
+							<button class="primary confirm" @click="confirmDeleteTodo()">确定</button>
+							<button class="cancel" @click="cancelTodo()">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
