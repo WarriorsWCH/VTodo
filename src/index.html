@@ -19,15 +19,15 @@
 	<div class="main">
 		<h3 class="big-title">添加任务：</h3>
 		<input placeholder="例如：吃饭睡觉打豆豆；    提示：+回车即可添加任务" type="text" class="task-input" v-on:keyup.13="addTodo" v-model="todo" />
-		<ul class="task-count" @click="switchNav">
-			<li class="nav all" :class="{active: navStatus === 'all'}">
+		<ul class="task-count">
+			<li class="nav all" :class="{active: navStatus === 'all'}" @click="switchNav('all')">
 				所有任务
 			</li>
-			<li class="nav unfinish" :class="{active: navStatus === 'unfinish'}">
+			<li class="nav unfinish" :class="{active: navStatus === 'unfinish'}" @click="switchNav('unfinish')">
 				未完成任务
-				<span v-show="noCompelate">{{noCompelate}}</span>
+				<span v-show="noCompelate">{{noCompelate > 99 ? 99 : noCompelate}}</span>
 			</li>
-			<li class="nav finish" :class="{active: navStatus === 'finish'}">
+			<li class="nav finish" :class="{active: navStatus === 'finish'}" @click="switchNav('finish')">
 				已完成任务
 			</li>
 		</ul>
@@ -43,8 +43,6 @@
 						<span class="action delete" @click="deleteTodo(item)"> 删除</span>
 						<span class="action detail"> 详细</span>
 					</span>
-					<!-- <input class="edit" type="text" v-model="item.title" v-foucs="editorTodo === item" @keyup.13="editTodoed(item)" @blur="editTodoed(item)"
-					 @keyup.esc="cancelTodo(item)" /> -->
 				</li>
 			</ul>
 			<div class="msg-container mask" v-show="isDelete">

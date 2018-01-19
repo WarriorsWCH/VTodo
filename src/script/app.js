@@ -86,8 +86,8 @@ var app = new Vue({
             //清空记录的数据，保证用户下次输入可以从新开始
             this.todo = "";
         },
-        switchNav(event) {
-            console.log(event);
+        switchNav(status) {//导航切换
+            this.navStatus = status;
         },
         deleteTodo(item) {//删除任务
             this.isDelete = true;
@@ -113,22 +113,6 @@ var app = new Vue({
         },
         cancelTodo() {//取消任务
             this.isDelete = false;
-        }
-    },
-    directives: {//自定义指令
-        "foucs": {
-            //钩子函数
-            update(el, binding) {
-                //el: 指令所绑定的元素，可以用来直接操作 DOM 。
-                //binding: 一个对象，包含以下属性：name  value....
-                console.log(el);
-                console.log(binding);
-
-                if (binding.value) {
-                    //自动聚焦
-                    el.focus();
-                }
-            }
         }
     }
 })
