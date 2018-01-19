@@ -24,11 +24,12 @@ var app = new Vue({
     data: {
         list: list,
         todo: '',//记录用户输入的内容，最终是要把这个记录放在list中
-        editorTodo: '',//记录被编辑的内容
-        beforTodo: '', //记录编辑之前的数据/内容
+        // editorTodo: '',//记录被编辑的内容
+        // beforTodo: '', //记录编辑之前的数据/内容
         navStatus: 'all',//通过这个属性的变化对数据进行过滤
         isDelete: false,
         selectItem:'',
+        isDetail: false,
     },
     watch: {//监听数据的变化
         //监听list数据的变化
@@ -102,17 +103,17 @@ var app = new Vue({
             //splice 也不是原生的方法
             //调用这个splice方法会更新DOM
         },
-        editTodo(item) {//双击编辑
-
-            //编辑任务时，记录一下这条任务的title
-            //方便后面取消编辑的时候重新赋值
-            this.beforTodo = item.title;
-
-            //记录被编辑的内容
-            this.editorTodo = item;
-        },
         cancelTodo() {//取消任务
             this.isDelete = false;
+            this.isDetail = false;
+        },
+        showDetail(item) {//显示详情
+            this.isDetail = true;
+            this.selectItem = item;
+        },
+        updateTodo(){//更新todo
+            this.isDetail = false;
+            console.log(this.selectItem)
         }
     }
 })
