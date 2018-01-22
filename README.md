@@ -67,16 +67,16 @@ npm install babel-cli --save-dev
 npm install --save-dev gulp-babel
   
 7. 配置gulpfile.js文件
-`
-var gulp = require("gulp");  
-var babel = require("gulp-babel");  
-gulp.task('js',function(){
-	gulp.src('src/script/**/*')
-	.pipe(babel({
-		presets: ['es2015']
-	}))
-	.pipe($.uglify())//压缩js
-	.pipe(gulp.dest('dist/js'))
-	.pipe($.connect.reload());
-});
-`
+
+                var gulp = require("gulp");  
+                var babel = require("gulp-babel");  
+                gulp.task('js',function(){
+                    gulp.src('src/script/**/*')
+                    .pipe(babel({
+                        presets: ['es2015']
+                    }))
+                    .pipe($.uglify())//压缩js
+                    .pipe(gulp.dest('dist/js'))
+                    .pipe($.connect.reload());
+                });
+
