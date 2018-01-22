@@ -13,7 +13,6 @@ var gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat');
-
 gulp.task('js', function () {
    return gulp.src('js/*.js')
       .pipe(jshint())
@@ -23,13 +22,14 @@ gulp.task('js', function () {
       .pipe(gulp.dest('build'));
 });
 `
+
 上面代码中，除了gulp模块以外，还加载另外三个模块。
 
 这种一一加载的写法，比较麻烦。使用gulp-load-plugins模块，可以加载所有的gulp模块。
-`var gulp = require('gulp'),
+`
+var gulp = require('gulp'),
     plu = require('gulp-load-plugins'),
     $ = plu();
-
 gulp.task('js', function () {
    return gulp.src('js/*.js')
       .pipe($.jshint())
@@ -70,7 +70,6 @@ npm install --save-dev gulp-babel
 `
 var gulp = require("gulp");  
 var babel = require("gulp-babel");  
-
 gulp.task('js',function(){
 	gulp.src('src/script/**/*')
 	.pipe(babel({
