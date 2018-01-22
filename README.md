@@ -43,14 +43,17 @@ A todo list using Vue
 
 ### gulp-babel
 1. 全局安装Babel。
+
 npm install -g babel-cli  
 
 2. 局部安装
+
 npm install babel-cli --save-dev  
 
 3. Babel的配置文件是.babelrc ，windows下新建该文件会提示必须键入文件名，解决办法是文件名如下.babelrc.
 
 4. ES2015转码规则
+
   npm install --save-dev babel-preset-es2015
 
 5. 将规则加入到.babelrc文件中    
@@ -64,6 +67,7 @@ npm install babel-cli --save-dev
 
 
 6. 安装gulp-babel
+
 npm install --save-dev gulp-babel
   
 7. 配置gulpfile.js文件
